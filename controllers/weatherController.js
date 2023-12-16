@@ -9,6 +9,11 @@ const getWeatherByCityName = async (req, res) => {
     // res.status(200).json({ weatherData });
     // Example response when data is not found:
     // res.status(404).json({ message: 'Weather data not found for the given city' });
+    const weatherData = await WeatherData.findOne({cityName})
+    if(!weatherData){
+      return res.status(404).json({ message: 'Weather data not found for the given city' });
+    }
+    res.status(200).json({weatherData})
   } catch (error) {
     res
       .status(500)
@@ -25,6 +30,11 @@ const getWeatherByZipCode = async (req, res) => {
     // res.status(200).json({ weatherData });
     // Example response when data is not found:
     // res.status(404).json({ message: 'Weather data not found for the given zip code' });
+    const weatherData = await WeatherData.findOne({zipCode})
+    if(!weatherData){
+      return res.status(404).json({ message: 'Weather data not found for the given city' });
+    }
+    res.status(200).json({weatherData})
   } catch (error) {
     res
       .status(500)
@@ -40,6 +50,14 @@ const postWeatherAlert = async (req, res) => {
     // TODO: Implement logic to post weather alert
     // Example response when alert is posted successfully:
     // res.status(201).json({ message: 'Weather alert posted successfully', alert: newAlert });
+    const newAlert = await WeatherData.create({
+      cityName,
+      humidity,
+      weatherDescription,
+      temperature,
+      zipCode
+    })
+    res.status(201).json({ message: 'Weather alert posted successfully', alert: newAlert });
   } catch (error) {
     res
       .status(500)
