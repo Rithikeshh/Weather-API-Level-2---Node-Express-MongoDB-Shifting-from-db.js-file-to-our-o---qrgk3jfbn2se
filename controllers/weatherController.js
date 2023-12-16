@@ -32,7 +32,7 @@ const getWeatherByZipCode = async (req, res) => {
     // res.status(404).json({ message: 'Weather data not found for the given zip code' });
     const weatherData = await WeatherData.findOne({zipCode})
     if(!weatherData){
-      return res.status(404).json({ message: 'Weather data not found for the given city' });
+      return res.status(404).json({ message: 'Weather data not found for the given zip code' });
     }
     res.status(200).json({weatherData})
   } catch (error) {
